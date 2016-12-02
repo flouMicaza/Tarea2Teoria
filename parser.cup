@@ -1,0 +1,85 @@
+/*imports para el parser*/
+
+
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.Scanner;
+
+
+parser code {:
+  protected Lexer lexer;
+
+
+  public void print(String s){
+	System.out.println(s);
+  }
+
+:}
+
+/* define how to connect to the scanner! */
+init with {:
+  ComplexSymbolFactory f = new ComplexSymbolFactory();
+  symbolFactory = f;
+  Scanner scanner = new Scanner(System.in);
+  print("nombre del archivo:");
+  String archivo = scanner.nextLine();
+  File file = new File(archivo);
+  FileInputStream fis = null;
+  try {
+    fis = new FileInputStream(file);
+  } catch (IOException e) {
+    e.printStackTrace();
+  } 
+  lexer = new Lexer(f,fis);
+  scanner.close();
+:};
+
+
+scan with {: return lexer.next_token(); :};
+
+/* Terminals (tokens returned by the scanner). */
+//BAJARP, LEVANTARP,COLORP,DIRP ...-PLUMA
+//PABAJO PARRIBA PCOLOR SETEAR PLUMA PLUMA-ALGO
+
+terminal           BAJARP,LEVANTARP,COLORP,DIRP,AVANZA,TCOLOR,BORDE,DIRACT,PABAJO,PARRIBA,NUMBER,COLOR,DIRECCION,IF,WHILE,THEN,ELSE,AND,OR,NOT,ABRE,CIERRA,PTOCOMA,DO,PCOLOR;
+      
+/* Non terminals */
+non terminal            OP,EXPR,ROOT;
+
+/* Precendenses*/
+
+precedence left AND, OR, PTOCOMA;
+/* The grammar rules */
+
+
+start with ROOT;
+
+ROOT::= OP {: print("root"); :};
+
+OP ::= 	BAJARP  {: print("bajap") ;:}
+ 		|LEVANTARP {: print("subep"); :}
+ 		| COLORP COLOR {: print("setear color"); :}
+ 		| DIRP DIRECCION {: print("set direcicon"); :}
+ 		| AVANZA NUMBER:n {: print("avanza"+n); :}		
+ 		| IF EXPR THEN ABRE OP CIERRA {: print("if"); :}
+ 		| IF EXPR THEN ABRE OP CIERRA ELSE ABRE OP CIERRA {: print("if else"); :}
+ 		| WHILE EXPR DO ABRE OP CIERRA {: print("while"); :}
+ 		| OP PTOCOMA OP {: print("op ; op"); :}
+ 		;
+ 		
+ 		
+ EXPR ::=	TCOLOR COLOR {: print("color de tabla"); :}
+ 			| BORDE {: print("borde"); :}
+ 			| DIRACT DIRECCION {: print("direccion actual"); :}
+ 			| PCOLOR COLOR:col {: print("es color" +col); :}
+ 			| PARRIBA {: print("subir"); :}
+ 			| PABAJO {: print("bajar") ;:}
+ 			| EXPR AND EXPR {: print("exp y exp"); :}
+ 			| EXPR OR EXPR {: print("exp o exp"); :}
+ 			| NOT EXPR {: print("no exp"); :}
+ 		 
+ 			;
+ 			
+ 			
+ 			
+ 	
