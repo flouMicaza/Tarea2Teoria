@@ -15,6 +15,14 @@ public class Iterador implements Accion{
       d.execute(p);
     }
   }
+
+  @Override
+  public void addAccion(Accion a) {
+    // TODO Auto-generated method stub
+    
+  }
+  
+  
   
   
 }

@@ -60,18 +60,18 @@ ROOT::= OP:o {: Accion accion= (Accion) o ; accion.execute(pluma); pluma.imprimi
 OP ::= 	BAJARP  {: RESULT = new BajarPluma()  ;:}
  		|LEVANTARP {: RESULT = new LevantarPluma() ; :}
  		| COLORP COLOR:col {: String color = (String) col ;RESULT= new SetColor(color); :}
- 		| DIRP DIRECCION:direc {: String direct = (String) direc ; RESULT= new SetDireccion(direc); :}
+ 		| DIRP DIRECCION:direc {: String direct = (String) direc ; RESULT= new SetDireccion(direct); :}
  		| AVANZA NUMBER:n {: RESULT =new Avanzar(); :}		
  		| IF EXPR:e THEN ABRE OP:o CIERRA {: Condiciones cond = (Condiciones) e; Accion acc = (Accion) o; RESULT = new CicloIF(new ClaseIF(cond) ,new ClaseThen(acc)); :}
- 		| IF EXPR:e THEN ABRE OP:o1 CIERRA ELSE ABRE OP:o2 CIERRA {:Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = CicloIF(new ClaseIF(cond) ,new ClaseThen(acc1), new ClaseElse(acc2)); :}
- 		| WHILE EXPR:e DO ABRE OP:o CIERRA {: Condiciones cond = (Condiciones) e; Accion acc = (Accion) o;RESULT = Iterador(new ClaseWhile(cond), new ClaseDO(acc)); :}
- 		| OP:o1 PTOCOMA OP:o2 {: Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = acc1.addAccion(acc2); :}
+ 		| IF EXPR:e THEN ABRE OP:o1 CIERRA ELSE ABRE OP:o2 CIERRA {:Condiciones cond = (Condiciones) e; Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = new CicloIF(new ClaseIF(cond) ,new ClaseThen(acc1), new ClaseElse(acc2)); :}
+ 		| WHILE EXPR:e DO ABRE OP:o CIERRA {: Condiciones cond = (Condiciones) e; Accion acc = (Accion) o;RESULT = new Iterador(new ClaseWhile(cond), new ClaseDO(acc)); :}
+ 		| OP:o1 PTOCOMA OP:o2 {: Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; acc1.addAccion(acc2);RESULT = acc1; :}
  		;
  		
  		
  EXPR ::=	TCOLOR COLOR:c {: String color = (String) c; RESULT = new ColorCasilla(color); :}
- 			| BORDE {: RESULT = Borde(); :}
- 			| DIRACT DIRECCION:d {: String direct = (String) d ; RESULT = DireccionPluma(direct); :}
+ 			| BORDE {: RESULT = new Borde(); :}
+ 			| DIRACT DIRECCION:d {: String direct = (String) d ; RESULT = new DireccionPluma(direct); :}
  			| PCOLOR COLOR:col1 {: String color = (String) col1; RESULT = new ColorPluma(color);  :}
  			| PARRIBA {: RESULT = new PlumaArriba(); :}
  			| PABAJO {: RESULT = new PlumaAbajo(); :}

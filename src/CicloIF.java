@@ -26,6 +26,12 @@ public class CicloIF implements Accion{
       e.execute(p);
     }
   }
+
+  @Override
+  public void addAccion(Accion a) {
+    // TODO Auto-generated method stub
+    
+  }
   
   
 	

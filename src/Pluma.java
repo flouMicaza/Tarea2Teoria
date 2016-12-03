@@ -16,7 +16,7 @@ public class Pluma{
   }
   
   public void imprimir(){
-    tablero.imprimir();
+    System.out.println(tablero.imprimir());
   }
   
 }

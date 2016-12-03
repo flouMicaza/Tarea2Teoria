@@ -277,7 +277,7 @@ class CUP$Parser$actions {
 		Location direcxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object direc = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG7
- String direct = (String) direc ; RESULT= new SetDireccion(direc); 
+ String direct = (String) direc ; RESULT= new SetDireccion(direct); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -325,7 +325,7 @@ class CUP$Parser$actions {
 		Location o2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
 		Object o2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG10
-Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = CicloIF(new ClaseIF(cond) ,new ClaseThen(acc1), new ClaseElse(acc2)); 
+Condiciones cond = (Condiciones) e; Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = new CicloIF(new ClaseIF(cond) ,new ClaseThen(acc1), new ClaseElse(acc2)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -341,7 +341,7 @@ Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Ac
 		Location oxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
 		Object o = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG11
- Condiciones cond = (Condiciones) e; Accion acc = (Accion) o;RESULT = Iterador(new ClaseWhile(cond), new ClaseDO(acc)); 
+ Condiciones cond = (Condiciones) e; Accion acc = (Accion) o;RESULT = new Iterador(new ClaseWhile(cond), new ClaseDO(acc)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -357,7 +357,7 @@ Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Ac
 		Location o2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object o2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG12
- Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = acc1.addAccion(acc2); 
+ Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; acc1.addAccion(acc2);RESULT = acc1; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -380,7 +380,7 @@ Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Ac
             {
               Object RESULT =null;
 		//@@CUPDBG14
- RESULT = Borde(); 
+ RESULT = new Borde(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -393,7 +393,7 @@ Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Ac
 		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG15
- String direct = (String) d ; RESULT = DireccionPluma(direct); 
+ String direct = (String) d ; RESULT = new DireccionPluma(direct); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

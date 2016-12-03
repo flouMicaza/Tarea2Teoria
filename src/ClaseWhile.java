@@ -3,7 +3,7 @@
 public class ClaseWhile implements Condiciones{
   protected Condiciones cond;
   
-  public void addCond(Condiciones o){
+  public ClaseWhile(Condiciones o){
     cond = o;
   }
 

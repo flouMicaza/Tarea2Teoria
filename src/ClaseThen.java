@@ -11,4 +11,9 @@ public class ClaseThen implements Accion{
   public void execute(Pluma p) {
     instrucciones.execute(p);
   }
+
+  @Override
+  public void addAccion(Accion a) {
+   // laskndosajdlkas 
+  }
 }

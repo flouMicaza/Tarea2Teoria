@@ -1,9 +1,109 @@
-color-pluma A;
-while not borde do {
-bajar-pluma ;
+levantar-pluma;
 direccion-pluma T;
-avanzar 1;
-levantar-pluma ;
+avanzar 49;
 direccion-pluma E;
-avanzar 01
+color-pluma N;
+bajar-pluma;
+avanzar 49;
+color-pluma A;
+direccion-pluma S;
+avanzar 49;
+color-pluma R;
+direccion-pluma O;
+avanzar 49;
+color-pluma V;
+direccion-pluma T;
+avanzar 48;
+direccion-pluma E;
+avanzar 1;
+color-pluma R;
+
+while tablero-col B do {
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+	
+	direccion-pluma O;
+	avanzar 1;
+	direccion-pluma S;
+	color-pluma V;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+	
+	direccion-pluma T;
+	avanzar 1;
+	direccion-pluma O;
+	color-pluma N;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+
+	direccion-pluma E;
+	avanzar 1;
+	direccion-pluma T;
+	color-pluma A;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+
+	direccion-pluma S;
+	avanzar 1;
+	direccion-pluma E;
+	color-pluma N;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+
+	direccion-pluma O;
+	avanzar 1;
+	direccion-pluma S;
+	color-pluma A;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+
+	direccion-pluma T;
+	avanzar 1;
+	direccion-pluma O;
+	color-pluma R;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+
+	direccion-pluma E;
+	avanzar 1;
+	direccion-pluma T;
+	color-pluma V;
+	bajar-pluma;
+	avanzar 1;
+	while tablero-col B do {
+		avanzar 1
+	};
+	levantar-pluma;
+	direccion-pluma S;
+	avanzar 1;
+	direccion-pluma E;
+	color-pluma R;
+	bajar-pluma;
+	avanzar 1	
 }
