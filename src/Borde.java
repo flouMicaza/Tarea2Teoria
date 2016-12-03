@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class Borde implements Condiciones{
 

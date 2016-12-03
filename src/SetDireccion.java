@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class SetDireccion implements Accion{
   protected Accion a;

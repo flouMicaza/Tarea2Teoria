@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class CicloIF implements Accion{
 

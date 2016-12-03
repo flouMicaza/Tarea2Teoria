@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class ClaseWhile implements Condiciones{
   protected Condiciones cond;

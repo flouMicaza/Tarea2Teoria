@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class PlumaArriba implements Condiciones{
 

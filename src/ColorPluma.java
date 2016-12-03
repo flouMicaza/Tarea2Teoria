@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class ColorPluma implements Condiciones{
   protected String color;

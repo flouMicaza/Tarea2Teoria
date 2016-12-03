@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class BajarPluma implements Accion{	
   protected Accion a;

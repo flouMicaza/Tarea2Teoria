@@ -1,18 +1,14 @@
-package teoria;
 
-import java.util.ArrayList;
 
 public class ClaseThen implements Accion{
-  protected ArrayList<Accion> instrucciones = new ArrayList<Accion>();
+  protected Accion instrucciones;
 
-  public void addIns(Accion o){
-    instrucciones.add(o);
+  public ClaseThen(Accion o){
+    instrucciones = o;
   }
 
   @Override
   public void execute(Pluma p) {
-    for(Accion a: instrucciones){
-      a.execute(p);
-    }
+    instrucciones.execute(p);
   }
 }

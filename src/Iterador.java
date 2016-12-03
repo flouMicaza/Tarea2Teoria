@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class Iterador implements Accion{
   protected ClaseWhile w;

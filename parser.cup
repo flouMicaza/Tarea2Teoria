@@ -43,7 +43,7 @@ scan with {: return lexer.next_token(); :};
 //PABAJO PARRIBA PCOLOR SETEAR PLUMA PLUMA-ALGO
 
 terminal           BAJARP,LEVANTARP,COLORP,DIRP,AVANZA,TCOLOR,BORDE,DIRACT,PABAJO,PARRIBA,NUMBER,COLOR,DIRECCION,IF,WHILE,THEN,ELSE,AND,OR,NOT,ABRE,CIERRA,PTOCOMA,DO,PCOLOR;
-      
+
 /* Non terminals */
 non terminal            OP,EXPR,ROOT;
 
@@ -55,29 +55,29 @@ precedence left AND, OR, PTOCOMA;
 
 start with ROOT;
 
-ROOT::= OP:o {: o.execute(pluma); :};
+ROOT::= OP:o {: Accion accion= (Accion) o ; accion.execute(pluma); pluma.imprimir(); :};
 
 OP ::= 	BAJARP  {: RESULT = new BajarPluma()  ;:}
  		|LEVANTARP {: RESULT = new LevantarPluma() ; :}
- 		| COLORP COLOR:col {:RESULT= new SetColor(col); :}
- 		| DIRP DIRECCION:direc {: RESULT= new SetDireccion(direc); :}
+ 		| COLORP COLOR:col {: String color = (String) col ;RESULT= new SetColor(color); :}
+ 		| DIRP DIRECCION:direc {: String direct = (String) direc ; RESULT= new SetDireccion(direc); :}
  		| AVANZA NUMBER:n {: RESULT =new Avanzar(); :}		
- 		| IF EXPR:e THEN ABRE OP:o CIERRA {: RESULT = new CicloIF(new ClaseIF(e) ,new ClaseThen(o)); :}
- 		| IF EXPR:e THEN ABRE OP:o1 CIERRA ELSE ABRE OP:o2 CIERRA {: RESULT = CicloIF(new ClaseIF(e) ,new ClaseThen(o1), new ClaseElse(o2)); :}
- 		| WHILE EXPR:e DO ABRE OP:o CIERRA {: RESULT = Iterador(new ClaseWhile(e), new ClaseDO(o)); :}
- 		| OP:o1 PTOCOMA OP:o2 {: RESULT = o1.addAccion(o2); :}
+ 		| IF EXPR:e THEN ABRE OP:o CIERRA {: Condiciones cond = (Condiciones) e; Accion acc = (Accion) o; RESULT = new CicloIF(new ClaseIF(cond) ,new ClaseThen(acc)); :}
+ 		| IF EXPR:e THEN ABRE OP:o1 CIERRA ELSE ABRE OP:o2 CIERRA {:Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = CicloIF(new ClaseIF(cond) ,new ClaseThen(acc1), new ClaseElse(acc2)); :}
+ 		| WHILE EXPR:e DO ABRE OP:o CIERRA {: Condiciones cond = (Condiciones) e; Accion acc = (Accion) o;RESULT = Iterador(new ClaseWhile(cond), new ClaseDO(acc)); :}
+ 		| OP:o1 PTOCOMA OP:o2 {: Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = acc1.addAccion(acc2); :}
  		;
  		
  		
- EXPR ::=	TCOLOR COLOR:c {: RESULT = new ColorCasilla(c); :}
+ EXPR ::=	TCOLOR COLOR:c {: String color = (String) c; RESULT = new ColorCasilla(color); :}
  			| BORDE {: RESULT = Borde(); :}
- 			| DIRACT DIRECCION:d {: RESULT = DireccionPluma(d); :}
- 			| PCOLOR COLOR:col1 {: RESULT = new ColorPluma(col1);  :}
+ 			| DIRACT DIRECCION:d {: String direct = (String) d ; RESULT = DireccionPluma(direct); :}
+ 			| PCOLOR COLOR:col1 {: String color = (String) col1; RESULT = new ColorPluma(color);  :}
  			| PARRIBA {: RESULT = new PlumaArriba(); :}
  			| PABAJO {: RESULT = new PlumaAbajo(); :}
- 			| EXPR:e1 AND EXPR:e2 {: RESULT = new ClaseAnd(e1,e2); :}
- 			| EXPR:e1 OR EXPR:e2 {: RESULT = new ClaseOr(e1,e2); :}
- 			| NOT EXPR:e {: RESULT = new ClaseNot(e); :}
+ 			| EXPR:e1 AND EXPR:e2 {: Condiciones cond1 = (Condiciones) e1; Condiciones cond2 = (Condiciones) e2; RESULT = new ClaseAnd(cond1,cond2); :}
+ 			| EXPR:e1 OR EXPR:e2 {:  Condiciones cond1 = (Condiciones) e1; Condiciones cond2 = (Condiciones) e2; RESULT = new ClaseOr(cond1,cond2);  :}
+ 			| NOT EXPR:e {: Condiciones cond1 = (Condiciones) e; RESULT = new ClaseNot(cond1); :}
  		 
  			;
  			

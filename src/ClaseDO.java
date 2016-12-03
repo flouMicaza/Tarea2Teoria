@@ -1,19 +1,14 @@
-package teoria;
-
-import java.util.ArrayList;
 
 public class ClaseDO implements Accion{
-  protected ArrayList<Accion> inst = new ArrayList<Accion>();
+  protected Accion inst;
   
-  public void addIns(Accion o) {
-	  inst.add(o);
+  public ClaseDO(Accion o) {
+	  inst = o;
   }
 
   @Override
   public void execute(Pluma p) {
-    for(Accion a: inst){
-      a.execute(p);
-    }
+    inst.execute(p);
   }
   
   

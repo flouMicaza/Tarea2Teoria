@@ -1,5 +1,3 @@
-package teoria;
-
 public class Pluma{
   
   protected String color = "B";
@@ -15,6 +13,10 @@ public class Pluma{
   
   public void colorear(){
     tablero.colorear(posX, posY, color);
+  }
+  
+  public void imprimir(){
+    tablero.imprimir();
   }
   
 }

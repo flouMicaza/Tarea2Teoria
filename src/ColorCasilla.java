@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class ColorCasilla implements Condiciones{
   protected String color;

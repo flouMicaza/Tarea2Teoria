@@ -1,4 +1,3 @@
-package teoria;
 
 public class ClaseNot implements Condiciones{
   protected Condiciones cond;

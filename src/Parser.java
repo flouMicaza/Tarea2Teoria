@@ -161,6 +161,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     e.printStackTrace();
   } 
   lexer = new Lexer(f,fis);
+  pluma = new Pluma(new Tablero());
   scanner.close();
 
     }
@@ -176,7 +177,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 //@@CUPDBG0
 
   protected Lexer lexer;
-
+  protected Pluma pluma;
 
   public void print(String s){
 	System.out.println(s);
@@ -226,8 +227,11 @@ class CUP$Parser$actions {
           case 1: // ROOT ::= OP 
             {
               Object RESULT =null;
+		Location oxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location oxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object o = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG3
- print("root"); 
+ Accion accion= (Accion) o ; accion.execute(pluma); pluma.imprimir(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ROOT",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -237,7 +241,7 @@ class CUP$Parser$actions {
             {
               Object RESULT =null;
 		//@@CUPDBG4
- print("bajap") ;
+ RESULT = new BajarPluma()  ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -247,7 +251,7 @@ class CUP$Parser$actions {
             {
               Object RESULT =null;
 		//@@CUPDBG5
- print("subep"); 
+ RESULT = new LevantarPluma() ; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -256,8 +260,11 @@ class CUP$Parser$actions {
           case 4: // OP ::= COLORP COLOR 
             {
               Object RESULT =null;
+		Location colxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location colxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object col = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG6
- print("setear color"); 
+ String color = (String) col ;RESULT= new SetColor(color); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -266,8 +273,11 @@ class CUP$Parser$actions {
           case 5: // OP ::= DIRP DIRECCION 
             {
               Object RESULT =null;
+		Location direcxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location direcxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object direc = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG7
- print("set direcicon"); 
+ String direct = (String) direc ; RESULT= new SetDireccion(direc); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -280,7 +290,7 @@ class CUP$Parser$actions {
 		Location nxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Object n = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG8
- print("avanza"+n); 
+ RESULT =new Avanzar(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -289,8 +299,14 @@ class CUP$Parser$actions {
           case 7: // OP ::= IF EXPR THEN ABRE OP CIERRA 
             {
               Object RESULT =null;
+		Location exleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).xleft;
+		Location exright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).xright;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		Location oxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+		Location oxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+		Object o = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG9
- print("if"); 
+ Condiciones cond = (Condiciones) e; Accion acc = (Accion) o; RESULT = new CicloIF(new ClaseIF(cond) ,new ClaseThen(acc)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -299,8 +315,17 @@ class CUP$Parser$actions {
           case 8: // OP ::= IF EXPR THEN ABRE OP CIERRA ELSE ABRE OP CIERRA 
             {
               Object RESULT =null;
+		Location exleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).xleft;
+		Location exright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).xright;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
+		Location o1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).xleft;
+		Location o1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).xright;
+		Object o1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		Location o2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+		Location o2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+		Object o2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG10
- print("if else"); 
+Condiciones cond = (Condiciones) e; Accion acc2 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = CicloIF(new ClaseIF(cond) ,new ClaseThen(acc1), new ClaseElse(acc2)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -309,8 +334,14 @@ class CUP$Parser$actions {
           case 9: // OP ::= WHILE EXPR DO ABRE OP CIERRA 
             {
               Object RESULT =null;
+		Location exleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).xleft;
+		Location exright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).xright;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		Location oxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+		Location oxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+		Object o = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG11
- print("while"); 
+ Condiciones cond = (Condiciones) e; Accion acc = (Accion) o;RESULT = Iterador(new ClaseWhile(cond), new ClaseDO(acc)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -319,8 +350,14 @@ class CUP$Parser$actions {
           case 10: // OP ::= OP PTOCOMA OP 
             {
               Object RESULT =null;
+		Location o1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location o1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Object o1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location o2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location o2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object o2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG12
- print("op ; op"); 
+ Accion acc1 = (Accion) o1; Accion acc2 = (Accion) o2; RESULT = acc1.addAccion(acc2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OP",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -329,8 +366,11 @@ class CUP$Parser$actions {
           case 11: // EXPR ::= TCOLOR COLOR 
             {
               Object RESULT =null;
+		Location cxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location cxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG13
- print("color de tabla"); 
+ String color = (String) c; RESULT = new ColorCasilla(color); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -340,7 +380,7 @@ class CUP$Parser$actions {
             {
               Object RESULT =null;
 		//@@CUPDBG14
- print("borde"); 
+ RESULT = Borde(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -349,8 +389,11 @@ class CUP$Parser$actions {
           case 13: // EXPR ::= DIRACT DIRECCION 
             {
               Object RESULT =null;
+		Location dxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location dxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object d = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG15
- print("direccion actual"); 
+ String direct = (String) d ; RESULT = DireccionPluma(direct); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -359,11 +402,11 @@ class CUP$Parser$actions {
           case 14: // EXPR ::= PCOLOR COLOR 
             {
               Object RESULT =null;
-		Location colxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
-		Location colxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
-		Object col = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		Location col1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location col1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object col1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG16
- print("es color" +col); 
+ String color = (String) col1; RESULT = new ColorPluma(color);  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -373,7 +416,7 @@ class CUP$Parser$actions {
             {
               Object RESULT =null;
 		//@@CUPDBG17
- print("subir"); 
+ RESULT = new PlumaArriba(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -383,7 +426,7 @@ class CUP$Parser$actions {
             {
               Object RESULT =null;
 		//@@CUPDBG18
- print("bajar") ;
+ RESULT = new PlumaAbajo(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -392,8 +435,14 @@ class CUP$Parser$actions {
           case 17: // EXPR ::= EXPR AND EXPR 
             {
               Object RESULT =null;
+		Location e1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location e1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Object e1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location e2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location e2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object e2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG19
- print("exp y exp"); 
+ Condiciones cond1 = (Condiciones) e1; Condiciones cond2 = (Condiciones) e2; RESULT = new ClaseAnd(cond1,cond2); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -402,8 +451,14 @@ class CUP$Parser$actions {
           case 18: // EXPR ::= EXPR OR EXPR 
             {
               Object RESULT =null;
+		Location e1xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location e1xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Object e1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location e2xleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location e2xright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object e2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG20
- print("exp o exp"); 
+  Condiciones cond1 = (Condiciones) e1; Condiciones cond2 = (Condiciones) e2; RESULT = new ClaseOr(cond1,cond2);  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -412,8 +467,11 @@ class CUP$Parser$actions {
           case 19: // EXPR ::= NOT EXPR 
             {
               Object RESULT =null;
+		Location exleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location exright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG21
- print("no exp"); 
+ Condiciones cond1 = (Condiciones) e; RESULT = new ClaseNot(cond1); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPR",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

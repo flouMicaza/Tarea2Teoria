@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class SetColor implements Accion{
   protected String color;

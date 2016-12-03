@@ -1,4 +1,3 @@
-package teoria;
 
 public class LevantarPluma implements Accion{
   protected Accion a;

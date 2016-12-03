@@ -1,4 +1,4 @@
-package teoria;
+
 
 public class DireccionPluma implements Condiciones{
   public String dir;

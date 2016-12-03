@@ -1,4 +1,3 @@
-package teoria;
 
 public class ClaseOr implements Condiciones{
   protected Condiciones cond1;

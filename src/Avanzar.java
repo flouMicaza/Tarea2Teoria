@@ -1,4 +1,3 @@
-package teoria;
 
 public class Avanzar implements Accion{
   protected Object a;
