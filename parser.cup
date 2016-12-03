@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 parser code {:
   protected Lexer lexer;
-
+  protected Pluma pluma;
 
   public void print(String s){
 	System.out.println(s);
@@ -31,6 +31,7 @@ init with {:
     e.printStackTrace();
   } 
   lexer = new Lexer(f,fis);
+  pluma = new Pluma(new Tablero());
   scanner.close();
 :};
 
@@ -54,29 +55,29 @@ precedence left AND, OR, PTOCOMA;
 
 start with ROOT;
 
-ROOT::= OP {: print("root"); :};
+ROOT::= OP:o {: o.execute(pluma); :};
 
-OP ::= 	BAJARP  {: print("bajap") ;:}
- 		|LEVANTARP {: print("subep"); :}
- 		| COLORP COLOR {: print("setear color"); :}
- 		| DIRP DIRECCION {: print("set direcicon"); :}
- 		| AVANZA NUMBER:n {: print("avanza"+n); :}		
- 		| IF EXPR THEN ABRE OP CIERRA {: print("if"); :}
- 		| IF EXPR THEN ABRE OP CIERRA ELSE ABRE OP CIERRA {: print("if else"); :}
- 		| WHILE EXPR DO ABRE OP CIERRA {: print("while"); :}
- 		| OP PTOCOMA OP {: print("op ; op"); :}
+OP ::= 	BAJARP  {: RESULT = new BajarPluma()  ;:}
+ 		|LEVANTARP {: RESULT = new LevantarPluma() ; :}
+ 		| COLORP COLOR:col {:RESULT= new SetColor(col); :}
+ 		| DIRP DIRECCION:direc {: RESULT= new SetDireccion(direc); :}
+ 		| AVANZA NUMBER:n {: RESULT =new Avanzar(); :}		
+ 		| IF EXPR:e THEN ABRE OP:o CIERRA {: RESULT = new CicloIF(new ClaseIF(e) ,new ClaseThen(o)); :}
+ 		| IF EXPR:e THEN ABRE OP:o1 CIERRA ELSE ABRE OP:o2 CIERRA {: RESULT = CicloIF(new ClaseIF(e) ,new ClaseThen(o1), new ClaseElse(o2)); :}
+ 		| WHILE EXPR:e DO ABRE OP:o CIERRA {: RESULT = Iterador(new ClaseWhile(e), new ClaseDO(o)); :}
+ 		| OP:o1 PTOCOMA OP:o2 {: RESULT = o1.addAccion(o2); :}
  		;
  		
  		
- EXPR ::=	TCOLOR COLOR {: print("color de tabla"); :}
- 			| BORDE {: print("borde"); :}
- 			| DIRACT DIRECCION {: print("direccion actual"); :}
- 			| PCOLOR COLOR:col {: print("es color" +col); :}
- 			| PARRIBA {: print("subir"); :}
- 			| PABAJO {: print("bajar") ;:}
- 			| EXPR AND EXPR {: print("exp y exp"); :}
- 			| EXPR OR EXPR {: print("exp o exp"); :}
- 			| NOT EXPR {: print("no exp"); :}
+ EXPR ::=	TCOLOR COLOR:c {: RESULT = new ColorCasilla(c); :}
+ 			| BORDE {: RESULT = Borde(); :}
+ 			| DIRACT DIRECCION:d {: RESULT = DireccionPluma(d); :}
+ 			| PCOLOR COLOR:col1 {: RESULT = new ColorPluma(col1);  :}
+ 			| PARRIBA {: RESULT = new PlumaArriba(); :}
+ 			| PABAJO {: RESULT = new PlumaAbajo(); :}
+ 			| EXPR:e1 AND EXPR:e2 {: RESULT = new ClaseAnd(e1,e2); :}
+ 			| EXPR:e1 OR EXPR:e2 {: RESULT = new ClaseOr(e1,e2); :}
+ 			| NOT EXPR:e {: RESULT = new ClaseNot(e); :}
  		 
  			;
  			
